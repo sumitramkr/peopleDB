@@ -10,6 +10,7 @@ const peopleSchema = new mongoose.Schema({
 });
 
 const People = mongoose.model("People", peopleSchema);
+
 const people = new People({
   name: "John",
   age: 37,
