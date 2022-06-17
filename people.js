@@ -31,7 +31,7 @@ const fruitSchema = new mongoose.Schema({
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
 const fruit = new Fruit({
-  // name: "Apple",
+  name: "Apple",
   ratings: 10,
 });
 
@@ -47,7 +47,7 @@ const banana = new Fruit({
 
 const guava = new Fruit({
   name: "Guava",
-  ratings: 9,
+  ratings: 10,
 });
 
 // Fruit.insertMany([orange, banana, guava], function (err) {
@@ -60,11 +60,9 @@ const guava = new Fruit({
 
 // people.save();
 
-fruit.save();
-
 //read data
 
-Fruit.find(function (err, fruits) {
+People.find(function (err, fruits) {
   console.log(fruits);
   // if (err) {
   //   console.log(err);
@@ -75,3 +73,21 @@ Fruit.find(function (err, fruits) {
   //   });
   // }
 });
+
+// Fruit.deleteMany({ name: "Apple" }, function (err) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("successsss");
+//   }
+// });
+
+People.deleteMany({ name: "John" }, function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("yayy");
+  }
+});
+
+// fruit.save();
