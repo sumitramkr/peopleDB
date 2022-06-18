@@ -4,18 +4,6 @@ mongoose.connect("mongodb://localhost:27017/peopleDB", {
   useNewUrlParser: true,
 });
 
-const peopleSchema = new mongoose.Schema({
-  name: String,
-  age: Number,
-});
-
-const People = mongoose.model("People", peopleSchema);
-
-const people = new People({
-  name: "John",
-  age: 37,
-});
-
 const fruitSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -29,6 +17,13 @@ const fruitSchema = new mongoose.Schema({
 });
 
 const Fruit = mongoose.model("Fruit", fruitSchema);
+
+const cherry = new Fruit({
+  name: "Cherry",
+  ratings: 4,
+});
+
+cherry.save();
 
 const fruit = new Fruit({
   name: "Apple",
@@ -50,15 +45,31 @@ const guava = new Fruit({
   ratings: 10,
 });
 
-// Fruit.insertMany([orange, banana, guava], function (err) {
-//   if (err) {
-//     console.log("Error");
-//   } else {
-//     console.log("Success");
-//   }
-// });
+Fruit.insertMany([fruit, orange, banana, guava], function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Success");
+  }
+});
 
-// people.save();
+const peopleSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  favouriteFruit: fruitSchema,
+});
+
+const People = mongoose.model("People", peopleSchema);
+
+const people = new People({
+  name: "John",
+  age: 37,
+  favouriteFruit: cherry,
+});
+
+people.save();
+
+// People.insertMany([{ people }], function (err) {});
 
 //read data
 
@@ -82,12 +93,27 @@ People.find(function (err, fruits) {
 //   }
 // });
 
-People.deleteMany({ name: "John" }, function (err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("yayy");
-  }
-});
+// People.deleteMany({ name: "John" }, function (err) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("yayy");
+//   }
+// });
+
+// People.deleteMany(
+//   { _id: "62acc379615b88e05e97ba09" },
+//   // [{ _id: "62acc02a0c24ba1202ae522c" }],
+//   // [{ _id: "62acc0f8637bb5dd0a7fa558" }],
+//   function (err) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log("yayy");
+//     }
+//   }
+// );
+
+// People.deleteOne({ name: "John" }, function (err) {});
 
 // fruit.save();
